@@ -41,6 +41,10 @@
 }
 .level-switch button:hover { color: var(--text); }
 .level-switch button[aria-pressed="true"] { background: var(--text); color: #000; }
+.level-switch__dots { display: inline-flex; gap: 3px; align-items: center; }
+.level-switch__dots i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.28; transition: opacity var(--t-fast); }
+.level-switch__dots i.on { opacity: 1; }
+.level-switch button:hover .level-switch__dots i.on { opacity: 1; }
 
 /* ---------- Buttons ---------- */
 .btn {

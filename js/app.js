@@ -7,9 +7,9 @@
   const HL = window.HL;
 
   const LEVELS = [
-    { id: "beginner", label: "BGN", full: "Beginner" },
-    { id: "intermediate", label: "INT", full: "Intermediate" },
-    { id: "advanced", label: "ADV", full: "Advanced" }
+    { id: "beginner", dots: 1, full: "Beginner" },
+    { id: "intermediate", dots: 2, full: "Intermediate" },
+    { id: "advanced", dots: 3, full: "Advanced" }
   ];
 
   // ---- Level switcher in the nav ----
@@ -19,14 +19,17 @@
     HL.ui.clear(host);
     const current = HL.state.getLevel();
     LEVELS.forEach((lv) => {
+      // Dots instead of text: Beginner ·  Intermediate ··  Advanced ···
+      const dots = HL.ui.el("span", { class: "level-switch__dots", attrs: { "aria-hidden": "true" } },
+        [1, 2, 3].map((d) => HL.ui.el("i", { class: d <= lv.dots ? "on" : "" })));
       const btn = HL.ui.el("button", {
         attrs: { type: "button", title: lv.full, "aria-pressed": current === lv.id ? "true" : "false", "aria-label": lv.full + " mode" },
-        text: lv.label,
         onClick() {
           HL.state.setLevel(lv.id);
           HL.ui.toast(lv.full + " mode on.", "safe");
         }
       });
+      btn.appendChild(dots);
       host.appendChild(btn);
     });
   }
