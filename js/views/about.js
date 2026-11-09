@@ -32,7 +32,7 @@
       el("h2", { attrs: { style: "margin-top:10px" }, text: "DG Umeth" }),
       el("p", { class: "lead", attrs: { style: "margin-top:10px" }, text: "IT graduate (Griffith University) aiming for entry-level networking, security and IT-support roles. Hack Lab is a portfolio piece built to make security basics click for non-technical people." }),
       el("div", { class: "hero__cta", attrs: { style: "justify-content:flex-start;margin-top:20px" } }, [
-        linkBtn("Portfolio", "https://portfolio-henna-nine-57.vercel.app/", "arrowR", "primary"),
+        linkBtn("Portfolio", "https://umeth.me", "arrowR", "primary"),
         linkBtn("GitHub", "https://github.com/DGUmeth", "code"),
         linkBtn("LinkedIn", "https://www.linkedin.com/in/umeth-mahanama-3b0a00215", "user"),
         linkBtn("Email", "mailto:umethmatara23@gmail.com", "mail")
