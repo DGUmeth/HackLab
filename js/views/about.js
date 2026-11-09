@@ -13,7 +13,7 @@
       ["Styling", "Vanilla CSS with design tokens, no framework"],
       ["Logic", "Plain JavaScript, one module per attack"],
       ["State", "localStorage (wrapped in try/catch)"],
-      ["Hosting", "Static — Vercel / GitHub Pages / Netlify"],
+      ["Hosting", "Static — Vercel"],
       ["A11y", "Keyboard-operable, ARIA labels, reduced-motion"]
     ];
 
