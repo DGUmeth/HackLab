@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hack Lab — Learn web attacks by doing</title>
+  <meta name="description" content="Hack Lab is a visual, hands-on lab that teaches the most common web attacks and how to defend against them. Everything is simulated safely in your browser." />
+
+  <!-- Fonts: Space Grotesk (headings/wordmark), Inter (body), JetBrains Mono (code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Design system: load order matters (tokens first) -->
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/modules.css" />
+  <link rel="stylesheet" href="css/print.css" />
+</head>
+<body>
+  <!-- Skip link for keyboard users -->
+  <a class="skip-link" href="#app">Skip to content</a>
+
+  <!-- ===== Top nav (wordmark left, links + level switcher right) ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a class="wordmark" href="#/" aria-label="Hack Lab home">
+        <span class="wordmark__mark">HACK</span><span class="wordmark__sub">LAB</span>
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav__menu" id="navMenu" aria-label="Primary">
+        <a href="#/map" data-navlink>Missions</a>
+        <a href="#/boss" data-navlink>Boss</a>
+        <a href="#/cheatsheet" data-navlink>Cheat Sheet</a>
+        <a href="#/about" data-navlink>About</a>
+        <div class="level-switch" id="levelSwitch" role="group" aria-label="Difficulty level">
+          <!-- buttons injected by app.js -->
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== App mount point: the router renders views here ===== -->
+  <main id="app" class="app" tabindex="-1"></main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="footer__wordmark">HACK<em>LAB</em></span>
+        <p class="footer__tag">A safe, simulated security playground.</p>
+      </div>
+      <div class="footer__links" aria-label="Contact links">
+        <a href="mailto:umethmatara23@gmail.com" title="Email" aria-label="Email DG Umeth">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/umeth-mahanama-3b0a00215" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.82-2.05 3.75-2.05C20.4 8.65 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3-2 0-2.3 1.57-2.3 3.2V21H9z"/></svg>
+        </a>
+        <a href="https://github.com/DGUmeth" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub profile">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path fill="currentColor" d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.26-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.9-1.29 2.74-1.02 2.74-1.02.55 1.37.2 2.38.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>
+        </a>
+        <a href="https://portfolio-henna-nine-57.vercel.app/" target="_blank" rel="noopener" title="Portfolio" aria-label="DG Umeth portfolio" class="footer__portfolio">Portfolio ↗</a>
+      </div>
+      <p class="footer__copy">© 2026 DG Umeth</p>
+    </div>
+  </footer>
+
+  <!-- Live region for announcements (accessibility) -->
+  <div id="liveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <!-- Toast container -->
+  <div id="toastHost" class="toast-host" aria-live="polite"></div>
+
+  <!-- ===== Scripts: classic scripts, loaded in dependency order (works on file:// too) ===== -->
+  <script src="js/state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/modules/registry.js"></script>
+  <script src="js/modules/moduleBase.js"></script>
+  <script src="js/modules/sqli.js"></script>
+  <script src="js/modules/xss.js"></script>
+  <script src="js/modules/phishing.js"></script>
+  <script src="js/modules/ddos.js"></script>
+  <script src="js/modules/credstuff.js"></script>
+  <script src="js/modules/csrf.js"></script>
+  <script src="js/modules/idor.js"></script>
+  <script src="js/modules/malware.js"></script>
+  <script src="js/modules/mitm.js"></script>
+  <script src="js/modules/session.js"></script>
+  <script src="js/modules/social.js"></script>
+  <script src="js/modules/supply.js"></script>
+  <script src="js/views/landing.js"></script>
+  <script src="js/views/missionMap.js"></script>
+  <script src="js/views/boss.js"></script>
+  <script src="js/views/cheatsheet.js"></script>
+  <script src="js/views/about.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+/* ============================================================
+   tokens.css — Design tokens for Hack Lab
+   Pure black + white identity. Red/green used ONLY as functional
+   status colour inside simulations (danger / safe).
+   ============================================================ */
+:root {
+  /* ---- Colour ---- */
+  --bg:          #000000;   /* pure black background */
+  --surface:     #0b0b0b;   /* cards */
+  --surface-2:   #111111;   /* raised panels, inputs */
+  --surface-3:   #181818;   /* hover / active panels */
+
+  --text:        #ffffff;   /* primary text + main accent */
+  --text-2:      #a6a6a6;   /* secondary / body grey */
+  --text-3:      #6a6a6a;   /* muted labels */
+
+  --border:      rgba(255,255,255,0.12);
+  --border-2:    rgba(255,255,255,0.28);
+  --border-3:    rgba(255,255,255,0.55);
+
+  /* Functional status — used sparingly */
+  --danger:      #ff5257;
+  --danger-dim:  rgba(255,82,87,0.14);
+  --safe:        #3ad07a;
+  --safe-dim:    rgba(58,208,122,0.14);
+  --warn:        #e8b94a;
+
+  /* ---- Type ---- */
+  --font-head: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --fs-hero: clamp(2.6rem, 7vw, 5rem);
+  --fs-h1:   clamp(2rem, 4.5vw, 3rem);
+  --fs-h2:   clamp(1.5rem, 3vw, 2.1rem);
+  --fs-h3:   1.25rem;
+  --fs-body: 1rem;
+  --fs-sm:   0.875rem;
+  --fs-xs:   0.75rem;
+
+  /* ---- Spacing / layout ---- */
+  --container: 1120px;
+  --gutter: 16px;
+  --radius-lg: 18px;
+  --radius:    14px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+
+  /* ---- Motion ---- */
+  --t-fast: 140ms ease;
+  --t:      220ms cubic-bezier(.22,.61,.36,1);
+  --t-slow: 420ms cubic-bezier(.22,.61,.36,1);
+
+  /* ---- Elevation ---- */
+  --glow: 0 0 0 1px var(--border-2), 0 18px 50px -20px rgba(255,255,255,0.08);
+}
+
+/* Respect users who prefer less motion: neutralise all animation/transition */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

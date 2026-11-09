@@ -1,0 +1,147 @@
+/* ============================================================
+   components.css — nav, footer, buttons, cards, chips, stepper,
+   badges, hero, level switch, progress bar, toasts
+   ============================================================ */
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+
+.wordmark { display: inline-flex; align-items: baseline; gap: 2px; font-family: var(--font-head); font-weight: 700; letter-spacing: 0.04em; }
+.wordmark__mark { color: var(--text); }
+.wordmark__sub { color: var(--text-3); }
+.wordmark:hover .wordmark__sub { color: var(--text); transition: color var(--t); }
+
+.nav__menu { display: flex; align-items: center; gap: 8px; }
+.nav__menu > a {
+  font-size: var(--fs-sm); color: var(--text-2); padding: 8px 12px; border-radius: var(--radius-sm);
+  position: relative; transition: color var(--t-fast);
+}
+.nav__menu > a:hover, .nav__menu > a.is-active { color: var(--text); }
+.nav__menu > a.is-active::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 1px; background: var(--text);
+}
+
+.nav__toggle { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.nav__toggle span { width: 22px; height: 2px; background: var(--text); transition: transform var(--t), opacity var(--t); }
+.nav__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- Level switch ---------- */
+.level-switch { display: inline-flex; gap: 2px; margin-left: 8px; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-pill); }
+.level-switch button {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-3); padding: 5px 10px; border-radius: var(--radius-pill); transition: color var(--t-fast), background var(--t-fast);
+}
+.level-switch button:hover { color: var(--text); }
+.level-switch button[aria-pressed="true"] { background: var(--text); color: #000; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  font-weight: 600; font-size: var(--fs-sm); padding: 12px 22px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border-2); transition: transform var(--t), background var(--t), border-color var(--t), color var(--t);
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn--primary { background: var(--text); color: #000; border-color: var(--text); }
+.btn--primary:hover { background: #e9e9e9; }
+.btn--ghost { background: transparent; color: var(--text); }
+.btn--ghost:hover { border-color: var(--border-3); background: var(--surface-2); }
+.btn--sm { padding: 8px 14px; font-size: var(--fs-xs); }
+.btn[disabled] { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* ---------- Cards ---------- */
+.card {
+  position: relative; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 26px; transition: transform var(--t), border-color var(--t), background var(--t);
+}
+.card:hover { transform: translateY(-4px); border-color: var(--border-2); background: var(--surface-2); }
+.card__num {
+  font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-3);
+  letter-spacing: 0.18em;
+}
+.card__title { font-size: var(--fs-h3); margin-top: 10px; }
+.card__desc { color: var(--text-2); font-size: var(--fs-sm); margin-top: 8px; }
+
+/* ---------- Chips / tags ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-2); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 4px 11px;
+}
+.chip--solid { background: var(--text); color: #000; border-color: var(--text); }
+.chip--danger { color: var(--danger); border-color: rgba(255,82,87,0.4); }
+.chip--safe { color: var(--safe); border-color: rgba(58,208,122,0.4); }
+
+/* ---------- Stepper ---------- */
+.stepper { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 28px; }
+.stepper__step {
+  display: flex; align-items: center; gap: 10px; flex: 1 1 160px; min-width: 150px;
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px;
+  color: var(--text-3); transition: border-color var(--t), color var(--t), background var(--t); text-align: left;
+}
+.stepper__step:hover { border-color: var(--border-2); color: var(--text-2); }
+.stepper__step.is-active { border-color: var(--text); color: var(--text); background: var(--surface-2); }
+.stepper__step.is-done { color: var(--text-2); }
+.stepper__dot {
+  width: 24px; height: 24px; flex: 0 0 auto; border-radius: 50%; border: 1px solid currentColor;
+  display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px;
+}
+.stepper__step.is-done .stepper__dot { background: var(--safe); color: #000; border-color: var(--safe); }
+.stepper__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* ---------- Progress bar ---------- */
+.progress { height: 8px; border-radius: var(--radius-pill); background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
+.progress__fill { height: 100%; background: var(--text); width: 0; transition: width var(--t-slow); }
+
+/* ---------- Badges ---------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border-2); border-radius: var(--radius-pill);
+  padding: 6px 14px; font-size: var(--fs-xs); font-family: var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.badge svg { width: 14px; height: 14px; }
+.badge--earned { background: var(--text); color: #000; border-color: var(--text); }
+.badge--locked { color: var(--text-3); }
+
+/* ---------- Footer ---------- */
+.footer { border-top: 1px solid var(--border); padding-block: 40px; margin-top: auto; }
+.footer__inner { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; justify-content: space-between; }
+.footer__wordmark { font-family: var(--font-head); font-weight: 700; letter-spacing: 0.04em; }
+.footer__wordmark em { color: var(--text-3); font-style: normal; }
+.footer__tag { color: var(--text-3); font-size: var(--fs-sm); margin-top: 4px; }
+.footer__links { display: flex; align-items: center; gap: 16px; color: var(--text-2); }
+.footer__links a { transition: color var(--t-fast), transform var(--t-fast); }
+.footer__links a:hover { color: var(--text); transform: translateY(-2px); }
+.footer__portfolio { font-size: var(--fs-sm); }
+.footer__copy { color: var(--text-3); font-size: var(--fs-sm); width: 100%; order: 3; border-top: 1px solid var(--border); padding-top: 18px; }
+
+/* ---------- Toasts ---------- */
+.toast-host { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 300; display: flex; flex-direction: column; gap: 10px; align-items: center; pointer-events: none; }
+.toast {
+  background: var(--surface-3); border: 1px solid var(--border-2); border-radius: var(--radius); padding: 12px 18px;
+  font-size: var(--fs-sm); display: flex; align-items: center; gap: 10px; box-shadow: var(--glow);
+  animation: rise var(--t) both;
+}
+.toast--safe { border-color: rgba(58,208,122,0.5); }
+.toast--danger { border-color: rgba(255,82,87,0.5); }
+
+/* ---------- Mobile nav ---------- */
+@media (max-width: 820px) {
+  .nav__toggle { display: flex; }
+  .nav__menu {
+    position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; align-items: stretch;
+    background: rgba(0,0,0,0.96); border-bottom: 1px solid var(--border); padding: 12px var(--gutter) 20px; gap: 4px;
+    transform: translateY(-120%); transition: transform var(--t); max-height: calc(100vh - 64px); overflow:auto;
+  }
+  .nav__menu.is-open { transform: translateY(0); }
+  .nav__menu > a { padding: 12px; }
+  .level-switch { margin: 10px 0 0; justify-content: center; }
+}

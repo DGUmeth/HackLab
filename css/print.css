@@ -1,0 +1,15 @@
+/* ============================================================
+   print.css — clean black-and-white print, mainly for the cheat sheet
+   ============================================================ */
+@media print {
+  :root { --bg:#fff; --surface:#fff; --surface-2:#fff; --text:#000; --text-2:#222; --text-3:#555; --border:#bbb; --border-2:#888; }
+  body { background: #fff; color: #000; }
+  .nav, .footer, .toast-host, .skip-link, .mod__nav, .level-switch, .hero__cta { display: none !important; }
+  .app { padding: 0; }
+  .card, .cheat, .mod__panel { border: 1px solid #999; box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
+  .card:hover { transform: none; }
+  a { color: #000; text-decoration: underline; }
+  .cheat__icon, .node__icon { color: #000; }
+  .print-hint { display: block !important; }
+}
+.print-hint { display: none; }
