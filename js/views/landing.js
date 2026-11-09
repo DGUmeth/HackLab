@@ -39,6 +39,7 @@
     const hero = el("section", { class: "hero hero--compact container rise" }, [
       el("p", { class: "eyebrow", text: "Safe · Simulated · Hands-on" }),
       el("h1", { class: "hero__title" }, [document.createTextNode("HACK "), el("span", { class: "fx", text: "LAB" })]),
+      el("p", { class: "hero__by", text: "BY DG UMETH" }),
       el("p", { class: "hero__tag", text: "Learn the most common web attacks by breaking things safely — then shut them down." }),
       el("div", { class: "hero__stats" }, [
         stat(builtCount, "Playable now"),

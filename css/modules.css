@@ -8,6 +8,7 @@
 .hero { text-align: center; padding-block: 40px 20px; }
 .hero__title { font-size: var(--fs-hero); font-weight: 700; }
 .hero__title .fx { color: var(--text-3); }
+.hero__by { margin-top: 6px; color: var(--text-3); font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.28em; text-transform: uppercase; }
 .hero__tag { color: var(--text-2); font-size: 1.1rem; max-width: 52ch; margin: 20px auto 0; }
 .hero__cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
 .hero__stats { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; margin-top: 44px; color: var(--text-3); }
