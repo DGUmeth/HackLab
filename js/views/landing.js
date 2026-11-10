@@ -1,5 +1,5 @@
 /* ============================================================
-   landing.js — hero + difficulty level select (the entry screen).
+   landing.js, hero + difficulty level select (the entry screen).
    ============================================================ */
 (function () {
   "use strict";
@@ -17,7 +17,7 @@
     const builtCount = HL.registry.filter((m) => m.built).length;
 
     // ----- Start button (appears right under the level cards) -----
-    const startBtn = HL.ui.button("Start the game", { variant: "primary", icon: "arrowR", onClick: start });
+    const startBtn = HL.ui.button("Start the game", { variant: "primary", icon: "arrowR", onClick: start, attrs: { id: "startBtn" } });
     function start() {
       if (!HL.state.hasChosen()) { HL.ui.toast("Pick a difficulty level to begin.", ""); scrollToCards(); return; }
       location.hash = "#/map";
@@ -31,7 +31,7 @@
       startBtn.disabled = !lvl;
       startBtn.classList.toggle("is-ready", !!lvl);
       startHint.textContent = lvl
-        ? HL.state.levelLabel(lvl) + " mode selected — you're ready to go."
+        ? HL.state.levelLabel(lvl) + " mode selected, you're ready to go."
         : "Select a difficulty above to unlock the game.";
     }
 
@@ -40,7 +40,7 @@
       el("p", { class: "eyebrow", text: "Safe · Simulated · Hands-on" }),
       el("h1", { class: "hero__title" }, [document.createTextNode("HACK "), el("span", { class: "fx", text: "LAB" })]),
       el("p", { class: "hero__by", text: "BY DG UMETH" }),
-      el("p", { class: "hero__tag", text: "Learn the most common web attacks by breaking things safely — then shut them down." }),
+      el("p", { class: "hero__tag", text: "Learn the most common web attacks by breaking things safely, then shut them down." }),
       el("div", { class: "hero__stats" }, [
         stat(builtCount, "Playable now"),
         stat(HL.registry.length, "Attacks mapped"),
@@ -52,7 +52,7 @@
     const chooseLead = el("div", { class: "container section", attrs: { style: "padding-bottom:0" } }, [
       el("p", { class: "eyebrow", text: "Step 1" }),
       el("h2", { attrs: { style: "margin-top:8px" }, text: "Choose your difficulty" }),
-      el("p", { class: "lead", attrs: { style: "margin-top:8px" }, text: "Same attacks and animations at every level — only the hints and challenge change. Switch any time from the top bar." })
+      el("p", { class: "lead", attrs: { style: "margin-top:8px" }, text: "Same attacks and animations at every level, only the hints and challenge change. Switch any time from the top bar." })
     ]);
 
     // Level cards
@@ -83,7 +83,7 @@
     }));
 
     // ----- Step 2: start the game (button right after selecting difficulty) -----
-    const startRow = el("div", { class: "container section start-row" }, [
+    const startRow = el("div", { class: "container section start-row", id: "startRow" }, [
       el("p", { class: "eyebrow", text: "Step 2" }),
       el("div", { class: "start-row__cta" }, [startBtn, HL.ui.button("View cheat sheet", { variant: "ghost", icon: "shield", onClick: () => (location.hash = "#/cheatsheet") })]),
       startHint

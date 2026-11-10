@@ -1,5 +1,5 @@
 /* ============================================================
-   idor.js — Broken Access Control / IDOR.
+   idor.js, Broken Access Control / IDOR.
    TRY: change the invoice ID in the URL and see someone else's data.
    FIX: enable a server-side ownership check -> 403 Forbidden.
    ============================================================ */
@@ -10,9 +10,9 @@
   const W = HL.widgets;
 
   const INVOICES = {
-    101: { name: "You (Alex Carter)", amount: "€120.00", item: "Pro plan — October", owner: true },
-    102: { name: "Jane Doe", amount: "€4,980.00", item: "Enterprise plan — October", owner: false },
-    103: { name: "Omar Said", amount: "€75.00", item: "Starter plan — October", owner: false }
+    101: { name: "You (Alex Carter)", amount: "€120.00", item: "Pro plan, October", owner: true },
+    102: { name: "Jane Doe", amount: "€4,980.00", item: "Enterprise plan, October", owner: false },
+    103: { name: "Omar Said", amount: "€75.00", item: "Starter plan, October", owner: false }
   };
   function diagram(svg) { const w = el("div", { class: "diagram" }); w.innerHTML = svg; return w; }
 
@@ -56,7 +56,7 @@
       openInvoice();
 
       let helper;
-      if (level === "beginner") helper = el("div", { attrs: { style: "margin-top:12px" } }, [el("div", { class: "chips" }, [W.payloadChip("Try 102", () => { idIn.value = "102"; openInvoice(); }), W.payloadChip("Try 103", () => { idIn.value = "103"; openInvoice(); })]), W.hint("Change 101 to 102 and press Open — you'll see Jane's invoice.")]);
+      if (level === "beginner") helper = el("div", { attrs: { style: "margin-top:12px" } }, [el("div", { class: "chips" }, [W.payloadChip("Try 102", () => { idIn.value = "102"; openInvoice(); }), W.payloadChip("Try 103", () => { idIn.value = "103"; openInvoice(); })]), W.hint("Change 101 to 102 and press Open, you'll see Jane's invoice.")]);
       else if (level === "intermediate") helper = W.hint("Your invoice is #101. What happens with the IDs next to yours?", ["beginner", "intermediate"]);
       else helper = el("p", { class: "mod__instruction", attrs: { style: "margin-top:12px" }, text: "Access an invoice that isn't yours." });
 
@@ -83,10 +83,10 @@
           panel.appendChild(el("p", { class: "eyebrow", attrs: { style: "color:var(--safe)" }, text: "403 Forbidden" }));
           panel.appendChild(el("p", { class: "card__desc", attrs: { style: "margin-top:6px" }, text: "This invoice doesn't belong to you." }));
           banner.show("Blocked. The server checks ownership before returning the record.", "safe");
-          ctx.complete(); HL.ui.toast("Access denied — fixed.", "safe");
+          ctx.complete(); HL.ui.toast("Access denied, fixed.", "safe");
         } else if (inv) {
           panel.appendChild(el("h3", { text: inv.name })); panel.appendChild(el("p", { class: "card__desc", text: inv.amount }));
-          banner.show(check ? "That one is yours, so it's allowed." : "Still leaking — enable the ownership check.", check ? "safe" : "danger");
+          banner.show(check ? "That one is yours, so it's allowed." : "Still leaking, enable the ownership check.", check ? "safe" : "danger");
         }
       }
 
@@ -96,7 +96,7 @@
         const opts = level === "advanced"
           ? [{ html: 'Scope the query: <code class="tok-safe">WHERE id = ? AND user_id = session.user</code>', correct: true }, { html: 'Make IDs <code class="tok-inject">random UUIDs</code> and hope nobody guesses', correct: false }, { html: 'Hide the ID in a <code class="tok-inject">hidden form field</code>', correct: false }]
           : [{ text: "Check on the server that the record belongs to the logged-in user.", correct: true }, { text: "Use bigger ID numbers.", correct: false }, { text: "Hide the invoice link in the menu.", correct: false }];
-        chooser = W.chooser("Which actually fixes IDOR?", opts, () => { chosen = true; HL.ui.announce("Correct — enable it and re-open."); });
+        chooser = W.chooser("Which actually fixes IDOR?", opts, () => { chosen = true; HL.ui.announce("Correct, enable it and re-open."); });
       }
 
       return { title: "Check who's asking", instruction: "Enable the ownership check, then try to open invoice #102 again.", node: el("div", {}, [chooser, el("div", { attrs: { style: "margin-bottom:14px;max-width:460px" } }, [toggle.node]), el("div", { class: "fakeui" }, [el("div", { class: "fakeui__bar" }, [el("div", { class: "fakeui__dots" }, [el("i"), el("i"), el("i")]), el("div", { class: "fakeui__url", text: "https://app.example/invoice/102" })]), panel]), el("div", { attrs: { style: "display:flex;gap:10px;align-items:center;margin-top:14px" } }, [el("label", { class: "eyebrow", text: "Invoice ID" }), idIn, HL.ui.button("Open", { variant: "primary", icon: "swap", onClick: openInvoice })]), W.hint("Obscure IDs only hide the problem; the real fix is checking ownership on every request.", ["beginner"]), banner.node]) };

@@ -1,5 +1,5 @@
 /* ============================================================
-   about.js — how it was built + about the creator.
+   about.js, how it was built + about the creator.
    ============================================================ */
 (function () {
   "use strict";
@@ -13,13 +13,13 @@
       ["Styling", "Vanilla CSS with design tokens, no framework"],
       ["Logic", "Plain JavaScript, one module per attack"],
       ["State", "localStorage (wrapped in try/catch)"],
-      ["Hosting", "Static — Vercel"],
+      ["Hosting", "Static, Vercel"],
       ["A11y", "Keyboard-operable, ARIA labels, reduced-motion"]
     ];
 
     const safetyNote = el("div", { class: "card" }, [
       el("div", { class: "mod__kicker" }, [icon("shield", 22), el("h2", { attrs: { style: "font-size:var(--fs-h3)" }, text: "Everything here is simulated" })]),
-      el("p", { class: "card__desc", attrs: { style: "margin-top:10px;font-size:var(--fs-body)" }, text: "No real exploits run. Inputs are matched against known demo payloads and the result is animated. User text is never executed — no eval, and user input is never injected as HTML. The “attacks” are safe visual demonstrations." })
+      el("p", { class: "card__desc", attrs: { style: "margin-top:10px;font-size:var(--fs-body)" }, text: "No real exploits run. Inputs are matched against known demo payloads and the result is animated. User text is never executed, no eval, and user input is never injected as HTML. The “attacks” are safe visual demonstrations." })
     ]);
 
     const stackCard = el("div", { class: "card" }, [

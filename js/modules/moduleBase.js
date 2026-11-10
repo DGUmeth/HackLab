@@ -1,5 +1,5 @@
 /* ============================================================
-   moduleBase.js — the shared 4-step flow every attack module uses.
+   moduleBase.js, the shared 4-step flow every attack module uses.
    Steps: SEE IT → TRY IT → FIX IT → QUICK CHECK.
 
    A module registers itself with HL.registerModule(id, def) where
@@ -154,7 +154,7 @@
     return el("div", { class: "container" }, [
       el("div", { class: "soon rise" }, [
         icon("lock", 48),
-        el("h1", { text: (meta ? meta.title : "Module") + " — coming soon" }),
+        el("h1", { text: (meta ? meta.title : "Module") + ", coming soon" }),
         el("p", { class: "lead", attrs: { style: "margin:10px auto 22px" }, text: "This module isn't built yet. The four flagship modules are ready to play now." }),
         HL.ui.button("Back to missions", { variant: "primary", icon: "arrowL", onClick: () => (location.hash = "#/map") })
       ])
@@ -264,7 +264,7 @@
               } else {
                 btn.classList.add("wrong");
                 btn.appendChild(icon("x", 16));
-                HL.ui.announce("Not quite — try another answer.");
+                HL.ui.announce("Not quite, try another answer.");
                 setTimeout(() => { btn.classList.remove("wrong"); btn.lastChild && btn.lastChild.tagName === "svg" && btn.removeChild(btn.lastChild); }, 900);
               }
             }

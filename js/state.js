@@ -1,5 +1,5 @@
 /* ============================================================
-   state.js — persistent state for Hack Lab
+   state.js, persistent state for Hack Lab
    Stores the chosen difficulty level, per-module progress and
    earned badges in localStorage. Every access is wrapped in
    try/catch so the site still works if storage is unavailable
@@ -41,7 +41,7 @@
     try {
       localStorage.setItem(KEY, JSON.stringify(data));
     } catch (e) {
-      /* storage unavailable — carry on in-memory only */
+      /* storage unavailable, carry on in-memory only */
     }
   }
 

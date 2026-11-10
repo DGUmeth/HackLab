@@ -1,5 +1,5 @@
 /* ============================================================
-   missionMap.js — the visual level map: one numbered node per
+   missionMap.js, the visual level map: one numbered node per
    attack with locked / in-progress / completed state, a progress
    bar, and earned badges.
    ============================================================ */
@@ -63,7 +63,7 @@
 
     const card = el("div", {
       class: "card node rise rise-" + ((i % 4) + 1) + (built ? "" : " is-locked"),
-      attrs: built ? { role: "link", tabindex: "0", "aria-label": m.title + " — " + label } : { "aria-label": m.title + " — coming soon" }
+      attrs: built ? { role: "link", tabindex: "0", "aria-label": m.title + ", " + label } : { "aria-label": m.title + ", coming soon" }
     }, [
       el("div", { class: "node__top" }, [
         el("span", { class: "card__num", text: m.num }),
@@ -83,7 +83,7 @@
       card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
       card.style.cursor = "pointer";
     } else {
-      card.addEventListener("click", () => HL.ui.toast(m.title + " — coming soon.", ""));
+      card.addEventListener("click", () => HL.ui.toast(m.title + ", coming soon.", ""));
     }
     return card;
   }

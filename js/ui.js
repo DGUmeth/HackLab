@@ -1,5 +1,5 @@
 /* ============================================================
-   ui.js — shared, safe DOM helpers + icon library
+   ui.js, shared, safe DOM helpers + icon library
    IMPORTANT (security): user-entered text is NEVER placed via
    innerHTML. We use el()/text nodes. innerHTML is only used for
    STATIC, trusted markup defined here in the source (e.g. icons).

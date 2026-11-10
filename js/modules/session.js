@@ -1,5 +1,5 @@
 /* ============================================================
-   session.js — Session hijacking.
+   session.js, Session hijacking.
    TRY: steal a session cookie and reuse it to become the victim.
    FIX: Secure + HttpOnly + short expiry + regenerate-on-login.
    ============================================================ */
@@ -14,7 +14,7 @@
     see() {
       return {
         title: "How session hijacking works",
-        instruction: "Your session cookie proves it's you. If an attacker copies it, they're logged in as you — no password needed.",
+        instruction: "Your session cookie proves it's you. If an attacker copies it, they're logged in as you, no password needed.",
         node: diagram(`<svg viewBox="0 0 640 200" role="img" aria-label="An attacker copies a session cookie and reuses it to log in as the victim.">
           <rect class="dg-node" x="16" y="72" width="120" height="56" rx="10"/><text class="dg-label" x="76" y="98" text-anchor="middle">Victim</text><text class="dg-label" x="76" y="114" text-anchor="middle">SESSION=9f3a</text>
           <path class="dg-line" stroke-dasharray="4 6" d="M136 100 H300"/>
@@ -31,7 +31,7 @@
       const banner = W.resultBanner();
       const cookie = "SESSION=9f3a8c1b7e2d";
       const stolen = el("pre", { class: "code", text: "(no cookie yet)" });
-      const who = el("b", { text: "— not logged in —" });
+      const who = el("b", { text: "not logged in" });
 
       function steal() { stolen.textContent = cookie; stolen.className = "code tok-inject"; HL.ui.toast("Cookie copied from the victim.", "danger"); }
       function reuse() {
@@ -41,7 +41,7 @@
         ctx.complete(); HL.ui.toast("Session hijacked.", "danger");
       }
 
-      const helper = level === "beginner" ? W.hint("Press Steal, then Reuse — the attacker becomes you with no password.")
+      const helper = level === "beginner" ? W.hint("Press Steal, then Reuse, the attacker becomes you with no password.")
         : (level === "intermediate" ? null : el("p", { class: "mod__instruction", text: "Capture the session cookie and use it to take over the account." }));
 
       return { title: "Copy the cookie, become the user", instruction: "Steal the victim's session cookie, then reuse it to log in as them.", node: el("div", { class: "grid grid-2" }, [
@@ -67,8 +67,8 @@
       function rerun() {
         if (!chosen) { banner.show("Pick the right protections first.", "danger"); return; }
         const ok = need.every((k) => flags[k]);
-        if (ok) { banner.show("Blocked. The cookie can't be read or reused — the stolen one is rejected.", "safe"); ctx.complete(); HL.ui.toast("Session protected.", "safe"); }
-        else banner.show("Still hijackable — turn on " + (level === "advanced" ? "all four protections" : "HttpOnly and Secure") + ".", "danger");
+        if (ok) { banner.show("Blocked. The cookie can't be read or reused, the stolen one is rejected.", "safe"); ctx.complete(); HL.ui.toast("Session protected.", "safe"); }
+        else banner.show("Still hijackable, turn on " + (level === "advanced" ? "all four protections" : "HttpOnly and Secure") + ".", "danger");
       }
 
       let chooser = null;
@@ -76,7 +76,7 @@
         const opts = level === "advanced"
           ? [{ text: "HttpOnly + Secure + short expiry + regenerate on login.", correct: true }, { text: "Store the session in localStorage instead.", correct: false }, { text: "Make the cookie value longer.", correct: false }]
           : [{ text: "HttpOnly and Secure cookie flags.", correct: true }, { text: "A longer password.", correct: false }, { text: "A custom cookie name.", correct: false }];
-        chooser = W.chooser("Which protects the session cookie?", opts, () => { chosen = true; HL.ui.announce("Correct — enable the flags and re-run."); });
+        chooser = W.chooser("Which protects the session cookie?", opts, () => { chosen = true; HL.ui.announce("Correct, enable the flags and re-run."); });
       }
 
       return { title: "Protect the cookie", instruction: "Turn on the cookie protections, then re-run the hijack and watch it fail.", node: el("div", {}, [chooser, el("div", { attrs: { style: "display:grid;gap:12px;margin-bottom:16px;max-width:520px" } }, toggles), HL.ui.button("Re-run the hijack", { variant: "primary", icon: "swap", onClick: rerun }), W.hint("HttpOnly stops scripts reading it; Secure keeps it off plain HTTP; expiry + regeneration limit a stolen one.", ["beginner"]), banner.node]) };

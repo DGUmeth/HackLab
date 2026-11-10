@@ -1,5 +1,5 @@
 /* ============================================================
-   ddos.js — Distributed Denial of Service module.
+   ddos.js, Distributed Denial of Service module.
    TRY IT: launch a flood and watch the load meter crash the server.
    FIX IT: add rate-limiter + CDN/WAF defences; bad traffic is
    filtered, real users still get through.
@@ -111,7 +111,7 @@
         if (load >= 100 && !crashed) {
           crashed = true; clearInterval(timer); timer = null;
           f.setServer("down");
-          banner.show("Server overloaded — it crashed. Real customers now get errors.", "danger");
+          banner.show("Server overloaded, it crashed. Real customers now get errors.", "danger");
           launchBtn.disabled = true;
           ctx.complete();
           HL.ui.toast("Server down. Now defend it.", "danger");
@@ -119,12 +119,12 @@
       }
       const launchBtn = HL.ui.button("Launch the flood", { variant: "primary", icon: "bolt", onClick() {
         if (timer || crashed) return;
-        banner.show("Flood launched — watch the load climb.", "danger");
+        banner.show("Flood launched, watch the load climb.", "danger");
         timer = setInterval(tick, 300);
       } });
 
       const helper = level === "beginner"
-        ? W.hint("Press Launch and watch the load meter climb to 100% — that's the server crashing.")
+        ? W.hint("Press Launch and watch the load meter climb to 100%, that's the server crashing.")
         : (level === "intermediate" ? null : el("p", { class: "mod__instruction", text: "Overwhelm the server, then fix it so legitimate users stay online." }));
 
       return {
@@ -159,7 +159,7 @@
           if (active.has(d.t)) return;
           active.add(d.t); tok.remove();
           stack.appendChild(el("div", { class: "token token--placed" }, [icon("check", 14), el("span", { text: d.t })]));
-          if (active.size >= needed) { stack.classList.add("drop-ok"); HL.ui.announce("Defences ready — re-run the flood."); }
+          if (active.size >= needed) { stack.classList.add("drop-ok"); HL.ui.announce("Defences ready, re-run the flood."); }
         });
         pool.appendChild(tok);
       });
@@ -179,7 +179,7 @@
             setTimeout(() => {
               clearInterval(timer); timer = null;
               banner.show("Flood filtered. Load holds steady and real users stay online.", "safe");
-              ctx.complete(); HL.ui.toast("Defended — server survived.", "safe");
+              ctx.complete(); HL.ui.toast("Defended, server survived.", "safe");
             }, 2200);
           }
         }, 300);

@@ -1,5 +1,5 @@
 /* ============================================================
-   phishing.js — Phishing module.
+   phishing.js, Phishing module.
    TRY IT: click the red flags hidden in a fake email.
    FIX IT: "check the domain" mini-game + build a verify checklist.
    All click/keyboard operable (drag is an optional enhancement).
@@ -61,7 +61,7 @@
             HL.ui.toast(note || "Red flag!", "danger");
             if (found.size >= needed) { banner.show("You spotted every red flag. This email is a fake.", "safe"); ctx.complete(); }
           } else {
-            HL.ui.toast("That part is actually fine — keep looking.", "");
+            HL.ui.toast("That part is actually fine, keep looking.", "");
           }
         };
         s.addEventListener("click", handler);
@@ -70,7 +70,7 @@
       }
 
       const mail = el("div", { class: "fakeui" }, [
-        el("div", { class: "fakeui__bar" }, [el("div", { class: "fakeui__dots" }, [el("i"), el("i"), el("i")]), el("div", { class: "fakeui__url", text: "Inbox — 1 new message" })]),
+        el("div", { class: "fakeui__bar" }, [el("div", { class: "fakeui__dots" }, [el("i"), el("i"), el("i")]), el("div", { class: "fakeui__url", text: "Inbox, 1 new message" })]),
         el("div", { class: "fakeui__body" }, [
           el("div", { class: "mail" }, [
             el("p", {}, [el("b", { text: "From: " }), flag("security@paypa1.com", { real: true, note: "Lookalike domain: paypa1 with a '1', not paypal." })]),
@@ -79,7 +79,7 @@
             el("p", {}, ["Dear Customer, we noticed unusual activity. ", flag("Verify immediately", { real: false }), " to avoid suspension."]),
             el("p", { attrs: { style: "margin-top:10px" } }, ["Please confirm your details here: ", flag("http://paypal.secure-login.info/verify", { real: true, note: "The real domain is secure-login.info, not paypal." })]),
             el("p", { attrs: { style: "margin-top:10px" } }, ["Thank you, ", flag("The PayPal Team", { real: false }), "."]),
-            el("p", { attrs: { style: "margin-top:10px" } }, [flag("Sent from a monitored mailbox — do not reply", { real: true, note: "Discourages you from checking — another flag." })])
+            el("p", { attrs: { style: "margin-top:10px" } }, [flag("Sent from a monitored mailbox, do not reply", { real: true, note: "Discourages you from checking, another flag." })])
           ])
         ])
       ]);
@@ -100,7 +100,7 @@
       const level = ctx.level;
       let domainDone = false, listDone = false;
       const banner = W.resultBanner();
-      function maybeComplete() { if (domainDone && listDone) { banner.show("Great habits — this is how you avoid the hook.", "safe"); ctx.complete(); HL.ui.toast("Phishing defences locked in.", "safe"); } }
+      function maybeComplete() { if (domainDone && listDone) { banner.show("Great habits, this is how you avoid the hook.", "safe"); ctx.complete(); HL.ui.toast("Phishing defences locked in.", "safe"); } }
 
       // ---- Mini-game: which link is the REAL PayPal? ----
       const domains = level === "advanced"
@@ -117,11 +117,11 @@
           onClick(e) {
             const b = e.currentTarget;
             if (d.ok) { b.classList.add("correct"); b.appendChild(icon("check", 16)); domainGame.querySelectorAll(".qopt").forEach((x) => (x.disabled = true)); domainDone = true; HL.ui.announce("Correct domain identified."); maybeComplete(); }
-            else { b.classList.add("wrong"); b.appendChild(icon("x", 16)); HL.ui.toast("Look closely — that's a lookalike.", "danger"); setTimeout(() => { b.classList.remove("wrong"); if (b.lastChild.tagName === "svg") b.removeChild(b.lastChild); }, 900); }
+            else { b.classList.add("wrong"); b.appendChild(icon("x", 16)); HL.ui.toast("Look closely, that's a lookalike.", "danger"); setTimeout(() => { b.classList.remove("wrong"); if (b.lastChild.tagName === "svg") b.removeChild(b.lastChild); }, 900); }
           }
         }, [el("span", { class: "qopt__key", text: String.fromCharCode(65 + i) }), el("span", { text: d.t })])))
       ]);
-      if (level === "beginner") domainGame.appendChild(W.hint("The real site is exactly paypal.com — watch for extra words or a '1' instead of 'l'."));
+      if (level === "beginner") domainGame.appendChild(W.hint("The real site is exactly paypal.com, watch for extra words or a '1' instead of 'l'."));
 
       // ---- Build-your-checklist (click to add; drag is a bonus) ----
       const goodHabits = ["Check the sender's full email address", "Hover a link to see its real domain", "Go to the site directly, not via the link", "Slow down when a message feels urgent"];
@@ -141,7 +141,7 @@
         return tok;
       }
       function moveToChecklist(item, tok) {
-        if (!item.good) { HL.ui.toast("That's a risky habit — leave it out.", "danger"); tok.classList.add("wrong"); setTimeout(() => tok.classList.remove("wrong"), 600); return; }
+        if (!item.good) { HL.ui.toast("That's a risky habit, leave it out.", "danger"); tok.classList.add("wrong"); setTimeout(() => tok.classList.remove("wrong"), 600); return; }
         if (placed.has(item.t)) return;
         placed.add(item.t);
         tok.remove();

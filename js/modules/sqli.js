@@ -1,5 +1,5 @@
 /* ============================================================
-   sqli.js — SQL Injection module (the template for the others).
+   sqli.js, SQL Injection module (the template for the others).
    Fully simulated: nothing typed is ever executed. User input is
    matched against known demo payloads and the *display* of the SQL
    query is rebuilt to show how injection changes its structure.
@@ -114,13 +114,13 @@
 
       function attempt() {
         if (isInjection(userIn.value) || isInjection(passIn.value)) {
-          banner.show("Access granted as admin — login bypassed with no real password.", "danger");
+          banner.show("Access granted as admin, login bypassed with no real password.", "danger");
           queryHost.classList.add("flash-danger");
           setTimeout(() => queryHost.classList.remove("flash-danger"), 1100);
           ctx.complete();
-          HL.ui.toast("Injection worked — now go fix it.", "danger");
+          HL.ui.toast("Injection worked, now go fix it.", "danger");
         } else {
-          banner.show("Invalid credentials. (Tip: ordinary passwords just fail — try bending the query.)", "safe");
+          banner.show("Invalid credentials. (Tip: ordinary passwords just fail, try bending the query.)", "safe");
         }
       }
 
@@ -148,7 +148,7 @@
             payloadChip("admin' --", drop("admin' --", "user")),
             payloadChip("hunter2 (normal)", drop("hunter2", "user"))
           ]),
-          W.hint("The quote closes the text, and OR '1'='1' is always true — so the check passes.")
+          W.hint("The quote closes the text, and OR '1'='1' is always true, so the check passes.")
         ]);
       } else if (level === "intermediate") {
         helper = el("div", { attrs: { style: "margin-top:16px" } }, [
@@ -185,11 +185,11 @@
       function rerun() {
         if (!defenceChosen) { banner.show("Pick the correct defence first.", "danger"); return; }
         if (mode === "safe") {
-          banner.show("Blocked. The payload is treated as a plain (wrong) username — login fails safely.", "safe");
+          banner.show("Blocked. The payload is treated as a plain (wrong) username, login fails safely.", "safe");
           ctx.complete();
           HL.ui.toast("Defended! Input stayed as data.", "safe");
         } else {
-          banner.show("Still vulnerable — the input is being glued into the SQL.", "danger");
+          banner.show("Still vulnerable, the input is being glued into the SQL.", "danger");
         }
       }
 
@@ -250,7 +250,7 @@
       const passed = W.resultBanner();
       const questions = quizByLevel(ctx.level);
       const node = el("div", {}, [
-        W.quiz(questions, { onPass() { passed.show("All correct — you've got SQL injection down.", "safe"); ctx.complete(); } }),
+        W.quiz(questions, { onPass() { passed.show("All correct, you've got SQL injection down.", "safe"); ctx.complete(); } }),
         passed.node
       ]);
       return {

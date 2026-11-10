@@ -1,5 +1,5 @@
 /* ============================================================
-   xss.js — Cross-Site Scripting module.
+   xss.js, Cross-Site Scripting module.
    We NEVER execute user input. A known payload is DETECTED and we
    *simulate* what unescaped output would do (a fake cookie being
    stolen). The comment itself is always rendered with textContent.
@@ -48,7 +48,7 @@
       el("div", { attrs: { style: "display:flex;justify-content:space-between;align-items:center;gap:10px" } }, [
         el("b", { text: name }), badge
       ]),
-      el("div", { class: "code", attrs: { style: "margin-top:8px" }, text: text }) // textContent — never innerHTML
+      el("div", { class: "code", attrs: { style: "margin-top:8px" }, text: text }) // textContent, never innerHTML
     ]);
   }
 
@@ -91,7 +91,7 @@
           exfilAnimation(exfilHost);
           banner.show("The comment wasn't escaped, so the browser treated it as code and ran it.", "danger");
           ctx.complete();
-          HL.ui.toast("Payload fired — now escape the output.", "danger");
+          HL.ui.toast("Payload fired, now escape the output.", "danger");
         } else {
           banner.show("Harmless comment posted. Try one that smuggles a script.", "safe");
         }
@@ -110,14 +110,14 @@
           W.hint("A comment containing a <script> tag becomes real code when the page shows it unescaped.")
         ]);
       } else if (level === "intermediate") {
-        helper = W.hint("Smuggle an HTML tag that runs code — a <script> tag, or an <img> with onerror.", ["beginner", "intermediate"]);
+        helper = W.hint("Smuggle an HTML tag that runs code, a <script> tag, or an <img> with onerror.", ["beginner", "intermediate"]);
       } else {
         helper = el("p", { class: "mod__instruction", attrs: { style: "margin-top:12px" }, text: "No hints. Post a comment that would execute in another visitor's browser." });
       }
 
       return {
         title: "Plant a script",
-        instruction: "Leave a comment that runs code when the page displays it. Nothing is really executed — the effect is simulated.",
+        instruction: "Leave a comment that runs code when the page displays it. Nothing is really executed, the effect is simulated.",
         node: el("div", { class: "grid grid-2" }, [
           el("div", { class: "fakeui" }, [
             el("div", { class: "fakeui__bar" }, [el("div", { class: "fakeui__dots" }, [el("i"), el("i"), el("i")]), el("div", { class: "fakeui__url", text: "https://blog.example/post/42#comments" })]),
@@ -147,8 +147,8 @@
 
       function rerun() {
         if (!defenceChosen) { banner.show("Pick the correct defence first.", "danger"); return; }
-        if (escaped) { banner.show("Blocked. The payload shows as plain text — the browser does not run it.", "safe"); ctx.complete(); HL.ui.toast("Output escaped — XSS neutralised.", "safe"); }
-        else banner.show("Still dangerous — the script would run.", "danger");
+        if (escaped) { banner.show("Blocked. The payload shows as plain text, the browser does not run it.", "safe"); ctx.complete(); HL.ui.toast("Output escaped, XSS neutralised.", "safe"); }
+        else banner.show("Still dangerous, the script would run.", "danger");
       }
 
       const toggle = W.toggle({ label: "Escape output (htmlspecialchars / Blade {{ }})", sub: "Show input as text, not HTML", onChange(on) { escaped = on; render(); } });
@@ -162,9 +162,9 @@
       let chooser = null;
       if (level !== "beginner") {
         const options = level === "advanced" ? [
-          { html: '<code class="tok-safe">{{ $comment }}</code> — Blade auto-escapes', correct: true },
-          { html: '<code class="tok-inject">{!! $comment !!}</code> — raw, unescaped', correct: false },
-          { html: '<code class="tok-inject">echo $comment;</code> — raw echo', correct: false }
+          { html: '<code class="tok-safe">{{ $comment }}</code>, Blade auto-escapes', correct: true },
+          { html: '<code class="tok-inject">{!! $comment !!}</code>, raw, unescaped', correct: false },
+          { html: '<code class="tok-inject">echo $comment;</code>, raw echo', correct: false }
         ] : [
           { text: "Escape output when rendering it (encode < > & as entities).", correct: true },
           { text: "Trim the comment to 100 characters.", correct: false },
@@ -202,7 +202,7 @@
         { text: "So JavaScript can't read it, so a script can't steal it.", correct: true },
         { text: "So it loads faster.", correct: false },
         { text: "So it never expires.", correct: false } ] });
-      const node = el("div", {}, [W.quiz(q, { onPass() { passed.show("Nailed it — XSS and its defences.", "safe"); ctx.complete(); } }), passed.node]);
+      const node = el("div", {}, [W.quiz(q, { onPass() { passed.show("Nailed it, XSS and its defences.", "safe"); ctx.complete(); } }), passed.node]);
       return { title: "Quick check", instruction: "Answer each question to earn the badge.", node };
     }
   });
@@ -224,7 +224,7 @@
         class: "qopt", attrs: { type: "button" },
         onClick(e) {
           const b = e.currentTarget;
-          if (o.correct) { b.classList.add("correct"); b.appendChild(icon("check", 16)); wrap.querySelectorAll(".qopt").forEach((x) => (x.disabled = true)); onCorrect(); HL.ui.announce("Correct — now enable it and re-run."); }
+          if (o.correct) { b.classList.add("correct"); b.appendChild(icon("check", 16)); wrap.querySelectorAll(".qopt").forEach((x) => (x.disabled = true)); onCorrect(); HL.ui.announce("Correct, now enable it and re-run."); }
           else { b.classList.add("wrong"); b.appendChild(icon("x", 16)); setTimeout(() => { b.classList.remove("wrong"); if (b.lastChild.tagName === "svg") b.removeChild(b.lastChild); }, 900); }
         }
       }, [el("span", { class: "qopt__key", text: String.fromCharCode(65 + i) }), el("span", o.html ? { html: o.html } : { text: o.text })])))

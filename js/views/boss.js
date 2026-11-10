@@ -1,5 +1,5 @@
 /* ============================================================
-   boss.js — Final boss: a fake company site with several planted
+   boss.js, Final boss: a fake company site with several planted
    attacks. Spot each one and choose how to stop it.
    ============================================================ */
 (function () {
@@ -11,19 +11,19 @@
   const THREATS = [
     { id: "t1", icon: "mail", where: "Inbox banner", found: "“security@acme-corp.co” asks staff to reset passwords via a link.",
       q: "What is this, and how do you stop it?",
-      options: [ { text: "Phishing — verify the sender and go to the site directly.", correct: true }, { text: "DDoS — add a rate limiter.", correct: false }, { text: "Nothing — it has the company logo.", correct: false } ] },
+      options: [ { text: "Phishing, verify the sender and go to the site directly.", correct: true }, { text: "DDoS, add a rate limiter.", correct: false }, { text: "Nothing, it has the company logo.", correct: false } ] },
     { id: "t2", icon: "database", where: "Admin login",
       found: "The login runs: …WHERE user = '$name' with input glued in.",
       q: "How do you shut this down?",
-      options: [ { text: "SQL injection — use parameterised queries.", correct: true }, { text: "Hide the error messages.", correct: false }, { text: "Make the password longer.", correct: false } ] },
+      options: [ { text: "SQL injection, use parameterised queries.", correct: true }, { text: "Hide the error messages.", correct: false }, { text: "Make the password longer.", correct: false } ] },
     { id: "t3", icon: "code", where: "Product reviews",
       found: "A review contains <script>…</script> and is shown unescaped.",
       q: "What stops it running in visitors' browsers?",
-      options: [ { text: "XSS — escape output and set a CSP.", correct: true }, { text: "Add HTTPS.", correct: false }, { text: "Delete the reviews page.", correct: false } ] },
+      options: [ { text: "XSS, escape output and set a CSP.", correct: true }, { text: "Add HTTPS.", correct: false }, { text: "Delete the reviews page.", correct: false } ] },
     { id: "t4", icon: "download", where: "Downloads",
       found: "A file named “invoice.pdf.exe” is offered for download.",
       q: "What's the danger and the move?",
-      options: [ { text: "Malware — the real extension is .exe; don't run it.", correct: true }, { text: "It's a normal PDF, open it.", correct: false }, { text: "CSRF — add a token.", correct: false } ] }
+      options: [ { text: "Malware, the real extension is .exe; don't run it.", correct: true }, { text: "It's a normal PDF, open it.", correct: false }, { text: "CSRF, add a token.", correct: false } ] }
   ];
 
   HL.views.boss = function () {
@@ -87,7 +87,7 @@
 
     function win() {
       HL.state.setBossBest(total);
-      banner.show("All clear — you spotted and stopped every attack. Boss defeated!", "safe");
+      banner.show("All clear, you spotted and stopped every attack. Boss defeated!", "safe");
       HL.ui.toast("Boss defeated! 🏆", "safe");
     }
 

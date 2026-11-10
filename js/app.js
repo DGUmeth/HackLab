@@ -1,5 +1,5 @@
 /* ============================================================
-   app.js — boots the application: builds the level switcher,
+   app.js, boots the application: builds the level switcher,
    wires the mobile nav, and starts the router.
    ============================================================ */
 (function () {
@@ -40,6 +40,19 @@
   window.addEventListener("hl:level", () => {
     buildLevelSwitch();
     if (HL.router) HL.router.render();
+    // On the landing page the re-render jumps to the top; instead keep the
+    // user at the "Start the game" step they just unlocked.
+    const hash = location.hash || "#/";
+    if (hash === "#/" || hash === "") {
+      requestAnimationFrame(() => {
+        const row = document.getElementById("startRow");
+        if (!row) return;
+        const reduce = HL.ui && HL.ui.reducedMotion && HL.ui.reducedMotion();
+        row.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+        const btn = document.getElementById("startBtn");
+        if (btn) { try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); } }
+      });
+    }
   });
   window.addEventListener("hl:badge", () => { /* progress reflected on next map visit */ });
   window.addEventListener("hl:reset", buildLevelSwitch);

@@ -1,5 +1,5 @@
 /* ============================================================
-   credstuff.js — Credential stuffing / brute force.
+   credstuff.js, Credential stuffing / brute force.
    TRY: see a password's crack time, then watch one reused
    password unlock several sites. FIX: unique passwords + MFA.
    ============================================================ */
@@ -11,7 +11,7 @@
 
   // Rough, illustrative crack-time estimate (not real security advice).
   function crackTime(pw) {
-    if (!pw) return { label: "—", pct: 0, cls: "" };
+    if (!pw) return { label: "no password yet", pct: 0, cls: "" };
     let pool = 0;
     if (/[a-z]/.test(pw)) pool += 26;
     if (/[A-Z]/.test(pw)) pool += 26;
@@ -36,7 +36,7 @@
     see() {
       return {
         title: "How credential stuffing works",
-        instruction: "Attackers take passwords leaked from one site and try them on hundreds of others — reused passwords open every door.",
+        instruction: "Attackers take passwords leaked from one site and try them on hundreds of others, reused passwords open every door.",
         node: diagram(`<svg viewBox="0 0 640 210" role="img" aria-label="A leaked password is tried against many sites and logs in everywhere it was reused.">
           <rect class="dg-node" x="16" y="78" width="130" height="56" rx="10"/><text class="dg-label" x="81" y="105" text-anchor="middle">Leaked list</text><text class="dg-label" x="81" y="121" text-anchor="middle" fill="#ff5257">bob:hunter2</text>
           <path class="dg-line dg-flow" d="M146 106 H250"/>
@@ -53,7 +53,7 @@
     tryIt(ctx) {
       const level = ctx.level;
       const pwIn = el("input", { class: "input", attrs: { type: "text", "aria-label": "Password to test", placeholder: "type a password", autocomplete: "off", spellcheck: "false" } });
-      const label = el("b", { text: "—" });
+      const label = el("b", { text: "no password yet" });
       const fill = el("div", { class: "meter__fill" });
       const meter = el("div", {}, [el("div", { class: "meter__cap" }, [el("span", { text: "Time to crack" }), label]), el("div", { class: "meter" }, [fill])]);
       function refresh() { const r = crackTime(pwIn.value); label.textContent = r.label; fill.style.width = (r.pct || 2) + "%"; fill.className = "meter__fill " + r.cls; }
@@ -65,11 +65,11 @@
 
       function stuff() {
         const weak = crackTime(pwIn.value).pct >= 85 || !pwIn.value;
-        if (!weak) { banner.show("Strong and unique — stuffing this would take far too long.", "safe"); return; }
+        if (!weak) { banner.show("Strong and unique, stuffing this would take far too long.", "safe"); return; }
         let i = 0;
         const rows = rack.querySelectorAll(".threat");
         const t = setInterval(() => {
-          if (i >= rows.length) { clearInterval(t); banner.show("One reused password unlocked every account.", "danger"); ctx.complete(); HL.ui.toast("All accounts breached — now fix it.", "danger"); return; }
+          if (i >= rows.length) { clearInterval(t); banner.show("One reused password unlocked every account.", "danger"); ctx.complete(); HL.ui.toast("All accounts breached, now fix it.", "danger"); return; }
           rows[i].classList.add("caught"); rows[i].querySelector(".threat__status").textContent = "unlocked ✓"; i++;
         }, 450);
       }
@@ -79,7 +79,7 @@
         el("div", { class: "chips" }, [W.payloadChip("password123", () => { pwIn.value = "password123"; refresh(); }), W.payloadChip("Tr0ub4dour&3xplore!", () => { pwIn.value = "Tr0ub4dour&3xplore!"; refresh(); })]),
         W.hint("Try the weak one, press Stuff, and watch it open every site. Then try the long one.")
       ]);
-      else if (level === "intermediate") helper = W.hint("Weak or leaked passwords crack instantly — and if reused, one hit opens them all.", ["beginner", "intermediate"]);
+      else if (level === "intermediate") helper = W.hint("Weak or leaked passwords crack instantly, and if reused, one hit opens them all.", ["beginner", "intermediate"]);
       else helper = el("p", { class: "mod__instruction", attrs: { style: "margin-top:12px" }, text: "Find a password weak enough to be stuffed across all three sites." });
 
       return {
@@ -104,7 +104,7 @@
           sites.querySelectorAll(".threat").forEach((r) => { r.classList.add("caught"); r.querySelector(".threat__status").textContent = "protected ✓"; });
           banner.show("Blocked. Unique passwords stop reuse, and MFA stops the leaked one working.", "safe");
           ctx.complete(); HL.ui.toast("Accounts protected.", "safe");
-        } else banner.show("Still exposed — you need both unique passwords and MFA.", "danger");
+        } else banner.show("Still exposed, you need both unique passwords and MFA.", "danger");
       }
 
       const t1 = W.toggle({ label: "Unique password per site", sub: "A leak can't unlock the others", onChange(v) { unique = v; } });
@@ -115,7 +115,7 @@
         const opts = level === "advanced"
           ? [{ text: "Unique passwords + MFA (and a password manager).", correct: true }, { text: "Force a 90-day password rotation only.", correct: false }, { text: "Add a CAPTCHA and call it done.", correct: false }]
           : [{ text: "Use a different password on every site, plus MFA.", correct: true }, { text: "Make the one password longer.", correct: false }, { text: "Change the username.", correct: false }];
-        chooser = W.chooser("Which actually stops credential stuffing?", opts, () => { chosen = true; HL.ui.announce("Correct — now enable the toggles and re-run."); });
+        chooser = W.chooser("Which actually stops credential stuffing?", opts, () => { chosen = true; HL.ui.announce("Correct, now enable the toggles and re-run."); });
       }
 
       return {
@@ -132,7 +132,7 @@
       const passed = W.resultBanner();
       const q = [
         { q: "Why is reusing one password dangerous?", options: [{ text: "A leak on one site unlocks all the others.", correct: true }, { text: "It uses more storage.", correct: false }, { text: "It slows logins.", correct: false }] },
-        { q: "Best single defence if a password leaks?", options: [{ text: "MFA — a password alone can't log in.", correct: true }, { text: "A longer username.", correct: false }, { text: "Clearing cookies.", correct: false }] }
+        { q: "Best single defence if a password leaks?", options: [{ text: "MFA, a password alone can't log in.", correct: true }, { text: "A longer username.", correct: false }, { text: "Clearing cookies.", correct: false }] }
       ];
       if (ctx.level !== "beginner") q.push({ q: "How do you keep a unique password per site?", options: [{ text: "Use a password manager.", correct: true }, { text: "Add 1, 2, 3 to the end.", correct: false }, { text: "Memorise one strong one.", correct: false }] });
       return { title: "Quick check", instruction: "Answer each question to earn the badge.", node: el("div", {}, [W.quiz(q, { onPass() { passed.show("Reuse won't catch you out now.", "safe"); ctx.complete(); } }), passed.node]) };

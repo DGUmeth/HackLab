@@ -1,5 +1,5 @@
 /* ============================================================
-   router.js — tiny hash router. Renders the matching view into
+   router.js, tiny hash router. Renders the matching view into
    #app. Routes:
      #/                → landing (level select)
      #/map             → mission map

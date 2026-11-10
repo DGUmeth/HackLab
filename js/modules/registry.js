@@ -1,5 +1,5 @@
 /* ============================================================
-   registry.js — metadata for all 12 attack modules.
+   registry.js, metadata for all 12 attack modules.
    `built: true` modules have a full SEE/TRY/FIX/QUICK-CHECK flow
    (registered into HL.modules by their own file). The rest show on
    the Mission Map + Cheat Sheet as "Coming soon".
@@ -14,7 +14,7 @@
       title: "SQL Injection", short: "SQLi",
       tags: ["SQLi", "Injection", "Server"],
       blurb: "Type trickery that rewrites a database query to walk straight past the login.",
-      defence: "Use <b>parameterised queries</b> — never glue user input into SQL."
+      defence: "Use <b>parameterised queries</b>, never glue user input into SQL."
     },
     {
       id: "xss", num: "02", built: true, icon: "code",

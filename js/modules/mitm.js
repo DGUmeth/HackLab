@@ -1,5 +1,5 @@
 /* ============================================================
-   mitm.js — Man-in-the-Middle (open Wi-Fi).
+   mitm.js, Man-in-the-Middle (open Wi-Fi).
    TRY: send a login over HTTP; the attacker reads it in clear text.
    FIX: switch to HTTPS (scrambled) + heed the certificate warning.
    ============================================================ */
@@ -43,7 +43,7 @@
         ctx.complete(); HL.ui.toast("Credentials intercepted.", "danger");
       }
 
-      const helper = level === "beginner" ? W.hint("Press “Send login (HTTP)” and look at the attacker's panel — your password is right there.")
+      const helper = level === "beginner" ? W.hint("Press “Send login (HTTP)” and look at the attacker's panel, your password is right there.")
         : (level === "intermediate" ? null : el("p", { class: "mod__instruction", text: "Send credentials over the insecure connection and inspect what leaks." }));
 
       return { title: "Send it in the clear", instruction: "You're on café Wi-Fi using plain HTTP. Log in and see what the attacker captures.", node: el("div", { class: "grid grid-2" }, [
@@ -61,23 +61,23 @@
 
       function send() {
         if (!chosen) { banner.show("Pick the right fix first.", "danger"); return; }
-        if (https) { intercept.textContent = "POST /login  " + scramble("email=alex password=S3cret") ; intercept.className = "code tok-safe"; if (heeded) { banner.show("Encrypted and verified. The attacker sees only scrambled bytes.", "safe"); ctx.complete(); HL.ui.toast("Traffic secured.", "safe"); } else banner.show("Encrypted — now handle the certificate warning below.", "safe"); }
-        else { intercept.textContent = "POST /login  email=alex@example.com password=S3cret!"; intercept.className = "code tok-inject"; banner.show("Still in the clear — enable HTTPS.", "danger"); }
+        if (https) { intercept.textContent = "POST /login  " + scramble("email=alex password=S3cret") ; intercept.className = "code tok-safe"; if (heeded) { banner.show("Encrypted and verified. The attacker sees only scrambled bytes.", "safe"); ctx.complete(); HL.ui.toast("Traffic secured.", "safe"); } else banner.show("Encrypted, now handle the certificate warning below.", "safe"); }
+        else { intercept.textContent = "POST /login  email=alex@example.com password=S3cret!"; intercept.className = "code tok-inject"; banner.show("Still in the clear, enable HTTPS.", "danger"); }
       }
 
       // Certificate-warning decision
       const certDecision = W.chooser("A certificate warning appears: “This site's identity can't be verified.” What do you do?", [
-        { text: "Do not proceed — leave the site.", correct: true },
+        { text: "Do not proceed, leave the site.", correct: true },
         { text: "Click 'Proceed anyway' to continue.", correct: false },
         { text: "Ignore it; the padlock will appear eventually.", correct: false }
-      ], () => { heeded = true; HL.ui.announce("Good — never click through a certificate warning on open Wi-Fi."); });
+      ], () => { heeded = true; HL.ui.announce("Good, never click through a certificate warning on open Wi-Fi."); });
 
       let chooser = null;
       if (level !== "beginner") {
         const opts = level === "advanced"
           ? [{ html: 'Force <code class="tok-safe">HTTPS + HSTS</code> and verify the certificate', correct: true }, { html: 'Trust the cafe <code class="tok-inject">captive portal</code> certificate', correct: false }, { html: 'Use a <code class="tok-inject">longer password</code>', correct: false }]
           : [{ text: "Use HTTPS so traffic is encrypted end-to-end.", correct: true }, { text: "Type faster so there's less to capture.", correct: false }, { text: "Use a nickname instead of your email.", correct: false }];
-        chooser = W.chooser("Which actually protects you on open Wi-Fi?", opts, () => { chosen = true; HL.ui.announce("Correct — enable HTTPS and re-send."); });
+        chooser = W.chooser("Which actually protects you on open Wi-Fi?", opts, () => { chosen = true; HL.ui.announce("Correct, enable HTTPS and re-send."); });
       }
 
       return { title: "Encrypt the connection", instruction: "Switch to HTTPS, re-send the login, and make the right call on the certificate warning.", node: el("div", {}, [chooser, el("div", { attrs: { style: "margin-bottom:14px;max-width:460px" } }, [toggle.node]), HL.ui.button("Send login again", { variant: "primary", icon: "swap", onClick: send }), el("div", { attrs: { style: "margin-top:16px" } }, [el("p", { class: "eyebrow", text: "Attacker sees" }), intercept]), el("div", { attrs: { style: "margin-top:16px" } }, [certDecision]), W.hint("HTTPS scrambles your data; the certificate proves you're really talking to the site, not the attacker.", ["beginner"]), banner.node]) };
@@ -89,7 +89,7 @@
         { q: "Why is open Wi-Fi + HTTP risky?", options: [{ text: "Someone in the middle can read your traffic in clear text.", correct: true }, { text: "It drains your battery.", correct: false }, { text: "It's slower.", correct: false }] },
         { q: "What does HTTPS give you?", options: [{ text: "Encryption + proof of the site's identity.", correct: true }, { text: "A faster connection.", correct: false }, { text: "A stronger password.", correct: false }] }
       ];
-      if (ctx.level !== "beginner") q.push({ q: "A certificate warning appears. You should…", options: [{ text: "Not proceed — it may be an attacker.", correct: true }, { text: "Always click proceed.", correct: false }, { text: "Disable HTTPS.", correct: false }] });
+      if (ctx.level !== "beginner") q.push({ q: "A certificate warning appears. You should…", options: [{ text: "Not proceed, it may be an attacker.", correct: true }, { text: "Always click proceed.", correct: false }, { text: "Disable HTTPS.", correct: false }] });
       return { title: "Quick check", instruction: "Answer each question to earn the badge.", node: el("div", {}, [W.quiz(q, { onPass() { passed.show("Safe on any network now.", "safe"); ctx.complete(); } }), passed.node]) };
     }
   });
